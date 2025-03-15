@@ -1,0 +1,22 @@
+.env
+package-lock.json
+node_modules
+test.js
+# Logs
+logs
+*.log
+dist
+dist-ssr
+*.local
+package-lock.json
+/frontend/src/output.css
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+# Build output
+dist/
+build/
+.vscode/
+.prettierrc
