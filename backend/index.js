@@ -2,8 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { startDB } from "./DB/syncdb";
-import { router } from "./Routes/routes";
+import { startDB } from "./DB/syncdb.js";
+import  router from "./Routes/routes.js";
 
 dotenv.config();
 

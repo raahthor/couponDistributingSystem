@@ -1,5 +1,5 @@
-import { sequelize, connectDB } from "./dbconfig";
-import { Claims, Coupons } from "../Models/models";
+import { sequelize, connectDB } from "./dbconfig.js";
+import { Claims, Coupons } from "../Models/models.js";
 
 const syncDB = async () => {
   try {

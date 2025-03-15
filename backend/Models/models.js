@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../DB/dbconfig";
+import { sequelize } from "../DB/dbconfig.js";
 
 const Coupons = sequelize.define("Coupons", {
   id: {
@@ -11,6 +11,10 @@ const Coupons = sequelize.define("Coupons", {
   coupon: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
 });
 
@@ -25,7 +29,11 @@ const Claims = sequelize.define("Claims", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  claimedBy: {
+  userIP: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  userCookie: {
     type: DataTypes.STRING,
     allowNull: false,
   },
