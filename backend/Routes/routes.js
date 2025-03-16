@@ -40,7 +40,7 @@ router.get("/api/coupons-page", async (req, res) => {
 router.post("/api/coupon-claimed", async (req, res) => {
   const claimedCoupon = req.body.coupon;
   const claimedCouponId = req.body.id;
-  const userIP = req.ip;
+  const userIP = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
   const userCookie = req.cookies.userCookie;
   if (!userCookie) {
     return res.json({
@@ -51,7 +51,7 @@ router.post("/api/coupon-claimed", async (req, res) => {
   const isIP = await Claims.findOne({ where: { userIP: userIP } });
   const isCookie = await Claims.findOne({ where: { userCookie: userCookie } });
   // console.log(`${isIP} .... ${isCookie}`)
-  if (isIP && isCookie) {
+  if (isIP || isCookie) {
     // console.log("if condition triggered")
     return res.json({
       success: false,
