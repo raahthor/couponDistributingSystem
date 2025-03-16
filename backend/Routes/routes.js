@@ -16,8 +16,8 @@ router.get("/api/coupons-page", async (req, res) => {
 
     res.cookie("userCookie", userCookie, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production" ? true : false,
-      sameSite: "None",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
       maxAge: 24 * 3600 * 1000,
     });
   }

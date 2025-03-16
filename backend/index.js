@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { startDB } from "./DB/syncdb.js";
-import  router from "./Routes/routes.js";
+import router from "./Routes/routes.js";
 
 dotenv.config();
 
