@@ -44,22 +44,22 @@ export default function CouponsAdmin({ availableCoupons, claimedCoupons }) {
   }
 
   return (
-    <section class="py-10 flex flex-col items-center">
-      <div class="w-full mx-auto p-4 mb-4 flex flex-col items-center">
-        <h2 class="text-3xl font-bold text-center mb-12">Available Coupons</h2>
+    <section className="py-10 flex flex-col items-center">
+      <div className="w-full mx-auto p-4 mb-4 flex flex-col items-center">
+        <h2 className="text-3xl font-bold text-center mb-12">Available Coupons</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 grid-rows-none gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 grid-rows-none gap-8">
           {couponArr
             .filter((coupon) => coupon.status !== "claimed")
             .map((coupon) => (
               <div
                 key={coupon.id}
-                class="h-30 w-50 flex flex-col justify-around  bg-gray-800 rounded-lg p-3 md:p-5"
+                className="h-30 w-50 flex flex-col justify-around  bg-gray-800 rounded-lg p-3 md:p-5"
               >
-                <h3 class="text-xl font-bold text-center">{coupon.coupon}</h3>
+                <h3 className="text-xl font-bold text-center">{coupon.coupon}</h3>
                 <button
                   onClick={() => handleUpdate(coupon.status, coupon.id)}
-                  class=" cursor-pointer rounded-md w-full bg-blue-500 py-3 hover:bg-blue-600"
+                  className=" cursor-pointer rounded-md w-full bg-blue-500 py-3 hover:bg-blue-600"
                 >
                   {coupon.status === null ? "Disable" : "Enable"}
                 </button>
@@ -67,16 +67,16 @@ export default function CouponsAdmin({ availableCoupons, claimedCoupons }) {
             ))}
         </div>
       </div>
-      <div class="w-full mx-auto p-4 mb-4 flex flex-col items-center bg-gray-800/50">
-        <h2 class="text-3xl font-bold text-center mb-12">Claimed Coupons</h2>
+      <div className="w-full mx-auto p-4 mb-4 flex flex-col items-center bg-gray-800/50">
+        <h2 className="text-3xl font-bold text-center mb-12">Claimed Coupons</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 grid-rows-none gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 grid-rows-none gap-8">
           {claimedArr.map((coupon) => (
             <div
               key={coupon.id}
-              class="h-25 w-40 flex flex-col justify-around  bg-gray-800 rounded-lg p-3 md:p-5"
+              className="h-25 w-40 flex flex-col justify-around  bg-gray-800 rounded-lg p-3 md:p-5"
             >
-              <h3 class="text-xl font-bold text-center">
+              <h3 className="text-xl font-bold text-center">
                 {coupon.claimedCoupon}
               </h3>
             </div>

@@ -13,7 +13,7 @@ router.get("/api", (req, res) => {
 router.get("/api/coupons-page", async (req, res) => {
   if (!req.cookies.userCookie) {
     const userCookie = crypto.randomUUID();
-    console.log(userCookie);
+    
     res.cookie("userCookie", userCookie, {
       httpOnly: true,
       maxAge: 24 * 3600 * 1000,

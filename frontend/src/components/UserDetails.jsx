@@ -1,8 +1,8 @@
 export default function UserDetails({ userStats }) {
   return (
-    <section class="py-10">
-      <div class="flex flex-col justify-around items-center px-10 lg:px-40">
-        <h2 class="text-3xl font-bold mb-8">User Claim History</h2>
+    <section className="py-10">
+      <div className="flex flex-col justify-around items-center px-10 lg:px-40">
+        <h2 className="text-3xl font-bold mb-8">User Claim History</h2>
         <table className="w-full table-auto border-collapse">
           <thead>
             <tr>
