@@ -16,8 +16,9 @@ router.get("/api/coupons-page", async (req, res) => {
     
     res.cookie("userCookie", userCookie, {
       httpOnly: true,
+      secure:process.env.NODE_ENV==="production",
       maxAge: 24 * 3600 * 1000,
-      sameSite: "strict",
+      sameSite: "None",
     });
   }
   try {
@@ -130,7 +131,7 @@ router.post("/api/admin/update", async (req, res) => {
   const isInactive = req.body.status;
   const couponId = req.body.id;
   try {
-    console.log(isInactive);
+    
     if (isInactive === "Disabled") {
       await Coupons.update({ status: "Disabled" }, { where: { id: couponId } });
     } else {
