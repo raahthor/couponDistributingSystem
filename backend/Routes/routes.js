@@ -50,9 +50,9 @@ router.post("/api/coupon-claimed", async (req, res) => {
   }
   const isIP = await Claims.findOne({ where: { userIP: userIP } });
   const isCookie = await Claims.findOne({ where: { userCookie: userCookie } });
-  console.log(`${isIP} .... ${isCookie}`)
+  // console.log(`${isIP} .... ${isCookie}`)
   if (isIP && isCookie) {
-    console.log("if condition triggered")
+    // console.log("if condition triggered")
     return res.json({
       success: false,
       message: "You can only claim once in 24 hours",

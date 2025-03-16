@@ -41,6 +41,7 @@ export default function Coupons() {
       );
 
       alert(response.data.message);
+      window.location.reload();
     } catch (error) {
       // console.log(response.data);
       alert(error.message);
