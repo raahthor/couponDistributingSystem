@@ -1,0 +1,94 @@
+import { useState } from "react";
+import axios from "axios";
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+export default function CouponsAdmin({ availableCoupons, claimedCoupons }) {
+  const [couponInput, setCouponInput] = useState("");
+  const [couponArr, updateCoupon] = useState(availableCoupons);
+  const [claimedArr, updateClaimed] = useState(claimedCoupons);
+
+  async function handleUpdate(status) {
+    // update coupons
+  }
+
+  async function handleAddCoupon() {
+    if (couponInput.trim() === "") {
+      alert("Coupon can't be empty");
+      return;
+    }
+    try {
+      const response = await axios.post(`${backendUrl}/api/admin/add`, {
+        coupon: couponInput,
+      });
+      alert("Coupon Added sucessfully");
+      console.log(response.data);
+      updateCoupon(response.data.availableCoupons);
+      updateClaimed(response.data.claimedCoupons);
+    } catch (error) {
+      console.error(error.message);
+      alert("error adding coupon try again");
+    }
+  }
+
+  return (
+    <section class="py-10 flex flex-col items-center">
+      <div class="w-full mx-auto p-4 mb-4 flex flex-col items-center">
+        <h2 class="text-3xl font-bold text-center mb-12">Available Coupons</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 grid-rows-none gap-8">
+          {couponArr
+            .filter((coupon) => coupon.status !== "claimed")
+            .map((coupon) => (
+              <div
+                key={coupon.id}
+                class="h-30 w-50 flex flex-col justify-around  bg-gray-800 rounded-lg p-3 md:p-8"
+              >
+                <h3 class="text-2xl font-bold text-center">{coupon.coupon}</h3>
+                <button
+                  onClick={() => handleUpdate(coupon.status)}
+                  class=" cursor-pointer rounded-md w-full bg-blue-500 py-3 hover:bg-blue-600"
+                >
+                  {coupon.status === null ? "Disable" : "Enable"}
+                </button>
+              </div>
+            ))}
+        </div>
+      </div>
+      <div class="w-full mx-auto p-4 mb-4 flex flex-col items-center bg-gray-800/50">
+        <h2 class="text-3xl font-bold text-center mb-12">Claimed Coupons</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 grid-rows-none gap-8">
+          {claimedArr
+            .filter((coupon) => coupon.status === "claimed")
+            .map((coupon) => (
+              <div
+                key={coupon.id}
+                class="h-30 w-50 flex flex-col justify-around  bg-gray-800 rounded-lg p-3 md:p-8"
+              >
+                <h3 class="text-2xl font-bold text-center">
+                  {coupon.claimedCoupon}
+                </h3>
+              </div>
+            ))}
+        </div>
+      </div>
+      <div className="mt-10 flex">
+        <input
+          type="text"
+          required
+          value={couponInput}
+          onChange={(e) => setCouponInput(e.target.value)}
+          placeholder="Enter Coupon Name"
+          className="h-8 pl-3 bg-amber-50/10  rounded-l-md"
+        />
+        <button
+          onClick={handleAddCoupon}
+          className="h-8 px-4 text-xs md:text-lg rounded-r-md bg-blue-500 hover:bg-blue-600"
+        >
+          Add Cuopons
+        </button>
+      </div>
+    </section>
+  );
+}
