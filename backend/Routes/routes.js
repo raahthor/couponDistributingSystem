@@ -16,7 +16,7 @@ router.get("/api/coupons-page", async (req, res) => {
     console.log(userCookie);
     res.cookie("userCookie", userCookie, {
       httpOnly: true,
-      maxAge: 2 * 3600 * 1000,
+      maxAge: 24 * 3600 * 1000,
       sameSite: "strict",
     });
   }
@@ -47,16 +47,16 @@ router.post("/api/coupon-claimed", async (req, res) => {
       message: "Please reload the page and try again",
     });
   }
-  const isIP = await Claims.findOne({ where: userIP });
-  const isCookie = await Claims.findOne({ where: userCookie });
+  const isIP = await Claims.findOne({ where: { userIP: userIP } });
+  const isCookie = await Claims.findOne({ where: { userCookie: userCookie } });
   if (isIP || isCookie) {
     return res.json({
       success: false,
-      message: "You can only claim once in 2 hours",
+      message: "You can only claim once in 24 hours",
     });
   }
   try {
-    await Claims.create({ claimedCoupon, userIP, userCookie });
+    await Claims.create({ claimedCouponId, claimedCoupon, userIP, userCookie });
     await Coupons.update(
       { status: "claimed" },
       { where: { id: claimedCouponId } }
@@ -103,7 +103,21 @@ router.post("/api/admin/add", async (req, res) => {
   const coupon = req.body.coupon;
   try {
     await Coupons.create({ coupon });
-    res.redirect("/api/admin");
+    try {
+      const coupons = await Coupons.findAll();
+      const claimed = await Claims.findAll();
+      return res.json({
+        success: true,
+        availableCoupons: coupons,
+        claimedCoupons: claimed,
+      });
+    } catch (err) {
+      console.log("Error in admin page: ", err.message);
+      return res.json({
+        success: false,
+        message: `Error fetching data, Error: ${err.message}`,
+      });
+    }
   } catch (error) {
     console.log("error adding coupon : ", error.message);
     res.status(500).json({
@@ -113,15 +127,30 @@ router.post("/api/admin/add", async (req, res) => {
 });
 
 router.post("/api/admin/update", async (req, res) => {
-  const isInactive = req.body.disabled;
+  const isInactive = req.body.status;
   const couponId = req.body.id;
   try {
-    if (isInactive === "inactive") {
-      await Coupons.update({ status: "inactive" }, { where: { id: couponId } });
+    console.log(isInactive);
+    if (isInactive === "Disabled") {
+      await Coupons.update({ status: "Disabled" }, { where: { id: couponId } });
     } else {
-      await Coupons.update({ status: "" }, { where: { id: couponId } });
+      await Coupons.update({ status: null }, { where: { id: couponId } });
     }
-    res.redirect("/api/admin");
+    try {
+      const coupons = await Coupons.findAll();
+      const claimed = await Claims.findAll();
+      return res.json({
+        success: true,
+        availableCoupons: coupons,
+        claimedCoupons: claimed,
+      });
+    } catch (err) {
+      console.log("Error in admin page: ", err.message);
+      return res.json({
+        success: false,
+        message: `Error fetching data, Error: ${err.message}`,
+      });
+    }
   } catch (error) {
     console.log("error updating coupons : ", error.message);
     res.status(400).json({

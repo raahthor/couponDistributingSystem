@@ -6,7 +6,7 @@ import { DataContext } from "../components/Data";
 
 export default function Admin({ updateIsAdmin }) {
   const { responseData } = useContext(DataContext);
-  console.log(responseData);
+  
   return (
     <>
       <NavAdmin updateIsAdmin={updateIsAdmin} />

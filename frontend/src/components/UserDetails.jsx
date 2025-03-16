@@ -21,11 +21,11 @@ export default function UserDetails({ userStats }) {
             </tr>
           </thead>
           <tbody>
-            {userStats.map((item) => {
+            {userStats.map((item,ind) => {
               return (
                 <tr key={item.id}>
                   <td className=" truncate border border-gray-500 px-2 py-1">
-                    {item.id}
+                    {ind+1}
                   </td>
 
                   <td className=" truncate border border-gray-500 px-2 py-1">
