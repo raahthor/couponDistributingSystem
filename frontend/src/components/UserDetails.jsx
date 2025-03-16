@@ -28,10 +28,10 @@ export default function UserDetails({ userStats }) {
                     {ind+1}
                   </td>
 
-                  <td className=" truncate border border-gray-500 px-2 py-1">
+                  <td className=" max-w-20 truncate border border-gray-500 px-2 py-1">
                     {item.userIP}
                   </td>
-                  <td className="truncate border border-gray-500 px-2 py-1">
+                  <td className="max-w-30 truncate border border-gray-500 px-2 py-1">
                     {item.userCookie}
                   </td>
                   <td className="truncate border border-gray-500 px-2 py-1">
