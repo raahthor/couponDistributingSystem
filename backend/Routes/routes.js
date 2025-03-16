@@ -18,7 +18,7 @@ router.get("/api/coupons-page", async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 24 * 3600 * 1000,
-      sameSite: "None",
+      sameSite: "Strict",
     });
   }
   try {
