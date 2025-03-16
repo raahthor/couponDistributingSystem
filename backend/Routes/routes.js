@@ -16,9 +16,9 @@ router.get("/api/coupons-page", async (req, res) => {
 
     res.cookie("userCookie", userCookie, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production" ? true : false,
+      sameSite: "None",
       maxAge: 24 * 3600 * 1000,
-      sameSite: "Strict",
     });
   }
   try {
@@ -43,7 +43,7 @@ router.post("/api/coupon-claimed", async (req, res) => {
   const userIP = req.ip;
   const userCookie = req.cookies.userCookie;
   if (!userCookie) {
-    return res.status(400).json({
+    return res.json({
       success: false,
       message: "Please reload the page and try again",
     });

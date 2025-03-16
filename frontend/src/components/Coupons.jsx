@@ -43,7 +43,8 @@ export default function Coupons() {
       alert(response.data.message);
     } catch (error) {
       // console.log(response.data);
-      alert(response.data.message);
+      alert(error.message);
+      console.log(error.message);
       window.location.reload();
     }
   }
