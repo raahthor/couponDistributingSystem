@@ -25,23 +25,24 @@ export default function Coupons() {
   }, []);
 
   async function handleClick(id, coupon) {
-    const response = await axios.post(
-      `${backendUrl}/api/coupon-claimed`,
-      {
-        id: id,
-        coupon: coupon,
-      },
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      const response = await axios.post(
+        `${backendUrl}/api/coupon-claimed`,
+        {
+          id: id,
+          coupon: coupon,
         },
-      }
-    );
-    // console.log(response.data);
-    if (!response.data.success) {
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
       alert(response.data.message);
-    } else {
+    } catch (error) {
+      // console.log(response.data);
       alert(response.data.message);
       window.location.reload();
     }
